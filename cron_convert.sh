@@ -99,7 +99,9 @@ function persist_execute_log {
   if test -n "$new_cron_hours"; then
     cron_hours=$(hours_except_now "$new_cron_hours")
   fi
-  "${sed_prefix[@]}" -E "s/(- cron: ')[0-9]+( [^[:space:]]+ \* \* \*')/\1$((RANDOM % 59)) ${cron_hours} * * *'/g" .github/workflows/run.yml
+  # "${sed_prefix[@]}" -E "s/(- cron: ')[0-9]+( [^[:space:]]+ \* \* \*')/\1$((RANDOM % 59)) ${cron_hours} * * *'/g" .github/workflows/run.yml
+  # 将 $RANDOM % 59 替换为固定的 15分运行
+  "${sed_prefix[@]}" -E "s/(- cron: ')[0-9]+( [^[:space:]]+ \* \* \*')/\115 ${cron_hours} * * *'/g" .github/workflows/run.yml
   current_cron=$(< .github/workflows/run.yml grep cron|awk '{print substr($0, index($0,$3))}')
   {
     echo "next cron:"
