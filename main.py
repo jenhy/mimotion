@@ -30,6 +30,7 @@ def get_min_max_by_time(hour=None, minute=None):
     time_rate = min((hour * 60 + minute) / (22 * 60), 1)
     min_step = get_int_value_default(config, 'MIN_STEP', 18000)
     max_step = get_int_value_default(config, 'MAX_STEP', 25000)
+    print(f"DEBUG CONFIG MIN_STEP={config.get('MIN_STEP')} MAX_STEP={config.get('MAX_STEP')}")
     return int(time_rate * min_step), int(time_rate * max_step)
 
 
